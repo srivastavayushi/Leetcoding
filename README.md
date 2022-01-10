@@ -1,10 +1,10 @@
-# Leetcoding
+# Leetcoding :zap:
 
 - This repository contains solutions to all the Leetcode problems I have solved !
 
 - Checkout my Leetcode account [here](https://leetcode.com/srivastavayushi/) !
 
-P.S. wish me luck!
+P.S. wish me luck :dizzy:
 
 ## Daily Updates:
 
