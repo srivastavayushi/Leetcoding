@@ -10,7 +10,7 @@ public:
         }
         
         for(int i=0;i<nums.size();i++){
-            if(leftSum==(sum-leftSum-nums[i])){
+            if(2*leftSum==(sum-nums[i])){
                 return i;
             }
             leftSum+=nums[i];
