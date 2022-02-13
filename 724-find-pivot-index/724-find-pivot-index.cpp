@@ -1,27 +1,19 @@
 class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
-        vector<int>copy(nums.size());
         
-        copy[nums.size()-1]=nums[nums.size()-1];
+        int sum=0;
+        int leftSum=0;
         
-        for(int i=nums.size()-2;i>=0;i--){
-            copy[i]=copy[i+1]+nums[i];
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
         }
         
-        if(copy[1]==0){
-            return 0;
-        }
-        
-        copy[0]=nums[0];
-        
-        for(int i=1;i<nums.size();i++){
-            int res=nums[i]+copy[i-1];
-            if(res==copy[i]){
+        for(int i=0;i<nums.size();i++){
+            if(leftSum==(sum-leftSum-nums[i])){
                 return i;
-            }else{
-                copy[i]=res;
             }
+            leftSum+=nums[i];
         }
         
         return -1;
