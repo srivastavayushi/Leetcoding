@@ -10,21 +10,13 @@
  */
 class Solution {
 public:
-    void reversee(ListNode* &head,ListNode* dummy){
-        if(dummy->next == NULL){
-            head = dummy;
-            return;
-        }
-        reversee(head,dummy->next);
-        ListNode* temp = dummy->next;
-        temp->next = dummy;
-        dummy->next = NULL;
-    }
     ListNode* reverseList(ListNode* head) {
-        if(head==NULL){
-            return head;
-        }
-        reversee(head,head);
-        return head;
+       if(!head || !(head->next)){
+           return head;
+       }
+        ListNode* temp = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return temp;
     }
 };
