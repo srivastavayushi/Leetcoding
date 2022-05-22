@@ -1,17 +1,26 @@
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
-        int l=0;
-        int r=0;
-        int size=nums.size();
-        while(r<size){
-            if(nums[r]!=0){
-                swap(nums[l],nums[r]);
-                l++;
-            }else{
-                nums[r]=0;
-            }
-            r++;
+        if(nums.size()==1){
+            return;
         }
+        int l=0;
+        int h=1;
+        int size = nums.size()-1;
+        
+        while(h<=size){
+            // cout<<nums[h]<<" "<<nums[l]<<" | ";
+            if(nums[l]==0 && nums[h]==0){
+                h++;
+            }else if(nums[l]==0 && nums[h] != 0){
+                swap(nums[h],nums[l]);
+                l++;
+                h++;
+            }else{
+                h++;
+                l++;
+            }
+        }
+        return;
     }
 };
