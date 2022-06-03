@@ -1,16 +1,17 @@
 class NumArray {
-    public:
-    NumArray(vector<int> &nums) {
-        accu.push_back(0);
-        for (int num : nums)
-            accu.push_back(accu.back() + num);
-    }
-
-    int sumRange(int i, int j) {
-        return accu[j + 1] - accu[i];
-    }
 private:
-    vector<int> accu;
+    vector<int> m;
+public:
+    NumArray(vector<int>& nums) : m(nums) {
+        for(int i=1;i<m.size();i++){
+            m[i] += m[i-1];
+        }
+    }
+    
+    int sumRange(int left, int right) {
+        if(left==0) return m[right];
+        return m[right] - m[left-1];
+    }
 };
 
 /**
