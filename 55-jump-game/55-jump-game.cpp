@@ -9,9 +9,7 @@ public:
             if(reachableIdx<i){
                 return false;
             }
-            if(reachableIdx<=(nums[i]+i)){
-               reachableIdx = nums[i]+i; 
-            }
+            reachableIdx = max(reachableIdx,nums[i]+i);
         }
         
         return true;
