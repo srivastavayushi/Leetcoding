@@ -13,28 +13,33 @@ class Solution {
 public:
     int deepestLeavesSum(TreeNode* root) {
         if(!root) return 0;
-        vector<vector<int>> levelOrder;
+        vector<int> levelOrder;
         queue<TreeNode*> q;
         q.push(root);
+        unordered_map<int,int>mpp;
+        int curr_level = 0;
         
         while(!q.empty()){
-            vector<int> level;
             int size = q.size();
             TreeNode* temp;
-            
             for(int i=0;i<size;i++){
+                mpp[curr_level]++;
                 temp = q.front();
-                level.push_back(temp->val);
+                levelOrder.push_back(temp->val);
                 if(temp->left) q.push(temp->left);
                 if(temp->right) q.push(temp->right);
                 q.pop();
             }
-            levelOrder.push_back(level);
+            curr_level++;
         }
         
         int sum = 0;
-        vector<int> leafNodes = levelOrder.back();
-        for(auto it : leafNodes) sum+=it;
+        int node = 0;
+        
+        for(int i=levelOrder.size()-1;i>=0 && node<mpp[curr_level-1];i--){
+            sum += levelOrder[i];
+            node++;
+        }
         
         return sum;
     }
