@@ -1,5 +1,8 @@
 class Solution {
 public:
+    static bool compare(vector<int>&v1, vector<int>&v2){
+        return v1[0] > v2[0];
+    }
     vector<int> topKFrequent(vector<int>& nums, int k) {
         if(nums.size() == 0 || nums.size() == 1) return nums;
         
@@ -17,12 +20,12 @@ public:
             hash.push_back(temp);
         }
         
-        sort(hash.begin(),hash.end());
+        sort(hash.begin(),hash.end(), compare);
         
         vector<int>res;
         
         while(k != 0){
-            res.push_back(hash[hash.size()-k][1]);
+            res.push_back(hash[k-1][1]);
             k--;
         }
         
