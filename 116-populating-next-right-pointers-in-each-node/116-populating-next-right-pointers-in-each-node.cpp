@@ -19,23 +19,13 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-    if(!root) return root;
-    queue<Node*> q;
-    q.push(root);
-    
-    while(!q.empty()){
-        int size = q.size();
-        for(int i=0;i<size;i++){
-            Node* temp = q.front();
-            cout<<temp->val<<' ';
-            q.pop();
-            if(i==size-1) temp->next=NULL;
-            else temp->next = q.front();
-            if(temp->left) q.push(temp->left);
-            if(temp->right) q.push(temp->right);
+        if(!root) return NULL;
+        if(root->left){
+            root->left->next=root->right;
+            if(root->next) root->right->next = root->next->left;
+            connect(root->left);
+            connect(root->right);
         }
-    }
-    
-    return root;
+        return root;
     }
 };
