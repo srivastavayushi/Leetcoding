@@ -10,30 +10,26 @@
  * };
  */
 class FindElements {
-private:
-    unordered_map<int,int>nodes;
 public:
-    void recoverNode(TreeNode* root,int value){
+    TreeNode* node;
+    unordered_map<int,int>mpp;
+    void clean(TreeNode* root, int value){
         if(!root) return;
-        
         root->val = value;
-        nodes[value]++;
-        if(root->left != NULL) recoverNode(root->left,2*value+1);
-        if(root->right != NULL) recoverNode(root->right,2*value+2);
-        
-        return;
+        mpp[root->val]++;
+        if(root->left) clean(root->left, 2*root->val+1);
+        if(root->right) clean(root->right, 2*root->val+2);
     }
     FindElements(TreeNode* root) {
-        recoverNode(root,0);
+        root->val = 0;
+        mpp[0]++;
+        if(root->left) clean(root->left, 2*root->val+1);
+        if(root->right) clean(root->right, 2*root->val+2);
+        node = root;
     }
     
     bool find(int target) {
-//         for(auto it : nodes){
-//             cout <<it.first<<' '<<it.second<<endl;
-//         }
-//         cout<<"-------"<<endl;
-        
-        return nodes[target]>0 ? true : false;
+        return mpp[target] ? true : false;
     }
 };
 
