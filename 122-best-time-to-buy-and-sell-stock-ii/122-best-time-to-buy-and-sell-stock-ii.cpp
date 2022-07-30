@@ -1,22 +1,20 @@
 class Solution {
 public:
-    int helper(int idx, bool buy, vector<int>&prices,vector<vector<int>>&dp){
-        // base case : even if we can sell, we wont get a profit out of it at last index
-        if(idx==prices.size()) return 0;
-        
-        if(dp[idx][buy] != -1) return dp[idx][buy];
-        
-        if(buy){
-            // if we can buy it -> either we buy so -prices or we dont
-            dp[idx][buy] = max(-prices[idx] + helper(idx+1,!buy,prices,dp), helper(idx+1,buy,prices,dp));
-        }else{
-            // if we sell it -> either we sell it so add profit or we dont
-            dp[idx][buy] = max(prices[idx] + helper(idx+1,!buy,prices,dp), helper(idx+1,buy,prices,dp));
-        }
-        return dp[idx][buy];
-    }
     int maxProfit(vector<int>& prices) {
-        vector<vector<int>>dp(prices.size()+1,vector<int>(2,-1));
-        return helper(0,true,prices,dp);
+        
+        int n = prices.size();
+        
+        // every cell in matrix suggests : agar is index ko buy/not buy kia to kitta price hoga
+        vector<vector<int>>dp(n+1,vector<int>(2,-1));
+        
+        dp[n][1] = dp[n][0] = 0;
+        
+        for(int i=n-1;i>=0;i--){
+            // buy - 1 and !buy - 0
+            dp[i][1] = max(-prices[i] + dp[i+1][0], dp[i+1][1]);
+            dp[i][0] = max(prices[i] + dp[i+1][1], dp[i+1][0]);
+        }
+        
+        return dp[0][1];
     }
 };
