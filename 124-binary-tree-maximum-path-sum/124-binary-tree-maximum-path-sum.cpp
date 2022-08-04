@@ -11,14 +11,19 @@
  */
 class Solution {
 public:
-    // this function gives maximum path compared to maxi from the node to null value
+    // this function gives maximum path sum compared to maxi from the node to null value
     int helper(TreeNode* root, int& maxi){
         if(!root) return 0;
-        int lmax = max(0, helper(root->right, maxi));
-        int rmax = max(0, helper(root->left, maxi));
         
+        // maximum path sum of left subtree from node
+        int lmax = max(0, helper(root->left, maxi));
+        // maximum path sum of right subtree from node
+        int rmax = max(0, helper(root->right, maxi));
+        
+        // maximum of maxi or tree containing curr node as turning point
         maxi = max(maxi, root->val + lmax + rmax);
         
+        // return maximum of (right subtree containing root->val, left subtree containing root->val)
         return max(lmax,rmax) + root->val;
     }
     int maxPathSum(TreeNode* root) {
