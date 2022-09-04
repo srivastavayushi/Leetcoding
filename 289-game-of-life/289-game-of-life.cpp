@@ -11,7 +11,7 @@ private:
             int nrow = m+row[i];
             int ncol = n+col[i];
             if(nrow<0 || ncol<0 || nrow>=board.size() || ncol>=board[0].size()) continue;
-            if(board[nrow][ncol]==1) livecells+=1;
+            if(board[nrow][ncol]==1 || board[nrow][ncol]==3) livecells+=1;
         }
         
         return livecells;
@@ -27,12 +27,21 @@ public:
                 int ln = live(i,j,vec);
                 
                 // cout<< i << ' '<< j<< ':'<< live(i,j,vec)<<endl;
+                // 0 -> 2
+                // 1 -> 3
                 
                 if(board[i][j]==1){
-                    if(ln<2 || ln>3) board[i][j] = 0;
+                    if(ln<2 || ln>3) board[i][j] = 2;
                 }else if(board[i][j]==0){
-                    if(ln==3) board[i][j] = 1;
+                    if(ln==3) board[i][j] = 3;
                 }
+            }
+        }
+        
+        for(int i=0;i<board.size();i++){
+            for(int j=0;j<board[i].size();j++){
+                if(board[i][j]==2) board[i][j] = 0;
+                else if(board[i][j]==3) board[i][j] = 1;
             }
         }
              
