@@ -7,19 +7,15 @@ using namespace std;
 // } Driver Code Ends
 //User function template for C++
 class Solution{
-private:
-    int findMaxSumHelper(int *arr, int n, vector<int>&dp){
-        if(n==0) return arr[n];
-	    if(n<0) return 0;
-	    if(dp[n] != -1) return dp[n];
-	    
-	    return dp[n] = max(findMaxSumHelper(arr,n-2,dp)+arr[n], findMaxSumHelper(arr,n-1,dp));
-    }
 public:	
 	// calculate the maximum sum with out adjacent
 	int findMaxSum(int *arr, int n) {
 	    vector<int>dp(n,-1);
-	    return findMaxSumHelper(arr,n-1,dp);
+	    dp[0] = arr[0];
+	    for(int i=1;i<n;i++){
+	        dp[i] = max(dp[i-2]+arr[i], dp[i-1]);
+	    }
+	    return dp[n-1];
 	}
 };
 
