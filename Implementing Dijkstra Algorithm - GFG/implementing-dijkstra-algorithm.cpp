@@ -11,26 +11,30 @@ class Solution
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         // Code here
-        priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>>pq;
-        vector<int>dist(V);
-        for(int i=0;i<V;i++) dist[i] = 1e9;
+        set<pair<int,int>>st;
+        vector<int>dist(V,1e9);
         
         dist[S] =0;
-        pq.push({0,S});
+        st.insert({0,S});
         
-        while(!pq.empty()){
-            int weight = pq.top().first;
-            int node = pq.top().second;
-            pq.pop();
+        while(!st.empty()){
+            auto it = *(st.begin());
+            int node = it.second;
+            int dis = it.first;
             
-            for(auto it: adj[node]){
-                int adjNode = it[0];
-                int adjWeight = it[1];
+            st.erase(it);
+            
+            for(auto ele : adj[node]){
+                int adjNode = ele[0];
+                int weight = ele[1];
                 
-                if(weight + adjWeight < dist[adjNode]){
-                    dist[adjNode] = weight + adjWeight;
-                    pq.push({dist[adjNode],adjNode});
-                } 
+                if(dis + weight < dist[adjNode]){
+                    // erase if alredy exists i.e. this node is already visited 
+                    if(dist[adjNode] != 1e9) st.erase({dist[adjNode],adjNode});
+                    
+                    dist[adjNode] = dis+weight;
+                    st.insert({dist[adjNode],adjNode});
+                }
             }
         }
         
