@@ -9,18 +9,23 @@ class Solution {
     // rec : minimum energy required to reach N from 0
     // Tabulation solution
     // Time complexity : O(n)
-    // Space complexity : O(n)
+    // Space complexity : O(1)
     int minimumEnergy(vector<int>& height, int n) {
         vector<int>dp(n,0);
+        int prev = 0;
+        int sprev = 0;
         
         for(int i=1;i<dp.size();i++){
-            int l = dp[i-1] + abs(height[i]-height[i-1]);
+            int l = prev + abs(height[i]-height[i-1]);
             int r = INT_MAX;
-            if(i>1) r = dp[i-2] + abs(height[i]-height[i-2]);
+            if(i>1) r = sprev + abs(height[i]-height[i-2]);
             
-            dp[i] = min(l,r);
+            int curr = min(l,r);
+            
+            sprev = prev;
+            prev = curr;
         }
-        return dp[n-1];
+        return prev;
     }
 };
 
