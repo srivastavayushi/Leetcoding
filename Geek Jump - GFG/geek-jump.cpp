@@ -7,6 +7,9 @@ using namespace std;
 class Solution {
   public:
     // rec : minimum energy required to reach N from 0
+    // memoization solution
+    // Time complexity : O(n)
+    // Space complexity : O(n)
     int rec(vector<int>&height, int idx, vector<int>&dp){
         if(idx==0) return 0;
         
