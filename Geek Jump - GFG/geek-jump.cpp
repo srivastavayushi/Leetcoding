@@ -7,25 +7,20 @@ using namespace std;
 class Solution {
   public:
     // rec : minimum energy required to reach N from 0
-    // memoization solution
+    // Tabulation solution
     // Time complexity : O(n)
     // Space complexity : O(n)
-    int rec(vector<int>&height, int idx, vector<int>&dp){
-        if(idx==0) return 0;
-        
-        if(dp[idx] != -1) return dp[idx];
-        
-        int l = rec(height, idx-1,dp) + abs(height[idx]-height[idx-1]);
-        int r = INT_MAX;
-        // (idx-2) can only be accessed if idx>1
-        if(idx>1){
-            r = rec(height, idx-2,dp) + abs(height[idx]-height[idx-2]);
-        }
-        return dp[idx] = min(l,r);
-    }
     int minimumEnergy(vector<int>& height, int n) {
-        vector<int>dp(n,-1);
-        return rec(height,n-1,dp);
+        vector<int>dp(n,0);
+        
+        for(int i=1;i<dp.size();i++){
+            int l = dp[i-1] + abs(height[i]-height[i-1]);
+            int r = INT_MAX;
+            if(i>1) r = dp[i-2] + abs(height[i]-height[i-2]);
+            
+            dp[i] = min(l,r);
+        }
+        return dp[n-1];
     }
 };
 
